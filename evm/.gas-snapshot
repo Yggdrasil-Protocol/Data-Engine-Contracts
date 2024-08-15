@@ -1,0 +1,7 @@
+PriceFeedTest:testFailRequestPriceFeedNonExistentPair() (gas: 31478)
+PriceFeedTest:testFailRequestPriceFeedWithoutPayment() (gas: 17394)
+PriceFeedTest:testFailUpdatePriceFeedByNonOwner() (gas: 16215)
+PriceFeedTest:testMultipleUpdates() (gas: 399356)
+PriceFeedTest:testMultipleUpdatesInASingleUpdate() (gas: 404947)
+PriceFeedTest:testRequestPriceFeed() (gas: 186089)
+PriceFeedTest:testUpdatePriceFeed() (gas: 94438)
