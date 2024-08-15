@@ -1,0 +1,205 @@
+{
+  "contract_name": "consumer",
+  "contract_version": "0.1.0",
+  "idl_version": "1.0.0",
+  "instantiate": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "InstantiateMsg",
+    "type": "object",
+    "required": [
+      "price_feed_contract"
+    ],
+    "properties": {
+      "price_feed_contract": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "execute": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "ExecuteMsg",
+    "oneOf": [
+      {
+        "type": "object",
+        "required": [
+          "request_single_price"
+        ],
+        "properties": {
+          "request_single_price": {
+            "type": "object",
+            "required": [
+              "pair"
+            ],
+            "properties": {
+              "pair": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "required": [
+          "request_multiple_prices"
+        ],
+        "properties": {
+          "request_multiple_prices": {
+            "type": "object",
+            "required": [
+              "pairs"
+            ],
+            "properties": {
+              "pairs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "required": [
+          "receive_price"
+        ],
+        "properties": {
+          "receive_price": {
+            "type": "object",
+            "required": [
+              "price_response"
+            ],
+            "properties": {
+              "price_response": {
+                "$ref": "#/definitions/PriceFeedResponse"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "required": [
+          "receive_prices"
+        ],
+        "properties": {
+          "receive_prices": {
+            "type": "object",
+            "required": [
+              "prices_response"
+            ],
+            "properties": {
+              "prices_response": {
+                "$ref": "#/definitions/PriceFeedsResponse"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    ],
+    "definitions": {
+      "Decimal256": {
+        "description": "A fixed-point decimal value with 18 fractional digits, i.e. Decimal256(1_000_000_000_000_000_000) == 1.0\n\nThe greatest possible value that can be represented is 115792089237316195423570985008687907853269984665640564039457.584007913129639935 (which is (2^256 - 1) / 10^18)",
+        "type": "string"
+      },
+      "PriceFeedResponse": {
+        "type": "object",
+        "required": [
+          "price",
+          "symbol"
+        ],
+        "properties": {
+          "price": {
+            "$ref": "#/definitions/Decimal256"
+          },
+          "symbol": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceFeedsResponse": {
+        "description": "Structure for multiple price feeds response",
+        "type": "object",
+        "required": [
+          "price_feeds"
+        ],
+        "properties": {
+          "price_feeds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/PriceFeedResponse"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "query": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "QueryMsg",
+    "oneOf": [
+      {
+        "type": "object",
+        "required": [
+          "get_value"
+        ],
+        "properties": {
+          "get_value": {
+            "type": "object",
+            "required": [
+              "pair"
+            ],
+            "properties": {
+              "pair": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    ]
+  },
+  "migrate": null,
+  "sudo": null,
+  "responses": {
+    "get_value": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PriceFeedResponse",
+      "type": "object",
+      "required": [
+        "price",
+        "symbol"
+      ],
+      "properties": {
+        "price": {
+          "$ref": "#/definitions/Decimal256"
+        },
+        "symbol": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "definitions": {
+        "Decimal256": {
+          "description": "A fixed-point decimal value with 18 fractional digits, i.e. Decimal256(1_000_000_000_000_000_000) == 1.0\n\nThe greatest possible value that can be represented is 115792089237316195423570985008687907853269984665640564039457.584007913129639935 (which is (2^256 - 1) / 10^18)",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
